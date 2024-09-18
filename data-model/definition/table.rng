@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+    xmlns="http://relaxng.org/ns/structure/1.0"
+    xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+    datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+    <start>
+        <element name="Table">
+            <element name="Dimensions">
+                <oneOrMore>
+                    <element name="Dimension">
+                        <element name="Id">
+                            <data type="positiveInteger"/>
+                        </element>
+                        <element name="Title">
+                            <data type="string"/>
+                        </element>
+                        <element name="Rubrics">
+                            <oneOrMore>
+                                <element name="Rubric">
+                                    <ref name="RubricType"/>
+                                </element>
+                            </oneOrMore>
+                        </element>
+                    </element>
+                </oneOrMore>
+            </element>
+            <element name="Information">
+                <oneOrMore>
+                    <element name="Chunk">
+                        <element name="Content">
+                            <choice>
+                                <element name="Value">
+                                    <text></text>
+                                </element>
+                                <element name="ComputedValue">
+                                    <text></text>
+                                </element>
+                            </choice>
+                        </element>
+                        <oneOrMore>
+                            <element name="RubricRef">
+                                <data type="positiveInteger"/>
+                            </element>
+                        </oneOrMore>
+                    </element>
+                </oneOrMore>
+            </element>
+        </element>
+    </start>
+    
+    <define name="RubricType">
+        <element name="Id">
+            <data type="positiveInteger"/>
+        </element>
+        <element name="Title">
+            <data type="string"/>
+        </element>
+        <optional>
+            <element name="Rubrics">
+                <oneOrMore>
+                    <element name="Rubric">
+                        <ref name="RubricType"/>
+                    </element>
+                </oneOrMore>
+            </element>
+        </optional>
+        <optional>
+            <element name="ComputedChunk">
+                <text/>
+            </element>
+        </optional>
+        <zeroOrMore>
+            <element name="ComputedFeature">
+                <text/>
+            </element>
+        </zeroOrMore>
+    </define>
+</grammar>
